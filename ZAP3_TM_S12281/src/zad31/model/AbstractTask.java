@@ -1,15 +1,23 @@
+/**
+ * @author Tomkowicz Małgorzata S12281
+ */
+
 package zad31.model;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 
-public abstract class AbstractTask implements Callable<String> {
+public abstract class AbstractTask implements Callable<String>, Future<String> {
 
 	private final String name;
 	protected static int counter = 0;
+	private TaskStatus status;
 	
 	public AbstractTask(String name) {
 		this.name = name;
+		counter++;
+		status = TaskStatus.New;
 	}
 	
 	@Override
@@ -32,10 +40,17 @@ public abstract class AbstractTask implements Callable<String> {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "Task: " + name;
+	}
+
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskStatus status) {
+		this.status = status;
 	}
 
 }
