@@ -5,10 +5,9 @@
 package zad31.model;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 
-public abstract class AbstractTask implements Callable<String>, Future<String> {
+public abstract class AbstractTask implements Callable<String> {
 
 	private final String name;
 	protected static int counter = 0;
@@ -46,11 +45,24 @@ public abstract class AbstractTask implements Callable<String>, Future<String> {
 	}
 
 	public TaskStatus getStatus() {
+	
 		return status;
 	}
 
 	public void setStatus(TaskStatus status) {
 		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	@Override
+	public String call() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
