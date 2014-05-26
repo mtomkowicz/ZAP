@@ -1,3 +1,6 @@
+/**
+ * @author Tomkowicz Małgorzata S12281
+ */
 package zad31.model;
 
 public class PowerTask extends AbstractTask {
@@ -8,6 +11,7 @@ public class PowerTask extends AbstractTask {
 	public PowerTask(String name, double power, int max) {
 		super(name);
 		this.power = power;
+		this.max = max;
 	}
 
 	@Override
@@ -33,6 +37,7 @@ public class PowerTask extends AbstractTask {
 		}
 		
 		return sb.toString();
+		
 	}
 
 	

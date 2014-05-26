@@ -12,6 +12,9 @@
  */
 package zad31;
 
+import javax.swing.SwingUtilities;
+
+
 /*
  Zadanie 1 (max. 4 p.) 
  Napisać program, w którym uruchamiane zadania pokazywane są na liście. 
@@ -22,5 +25,6 @@ package zad31;
 public class Main {
 
   public static void main(String[] args) {
+	  SwingUtilities.invokeLater(new MainFrame());
   }
 }

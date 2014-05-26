@@ -11,12 +11,12 @@ public abstract class AbstractTask implements Callable<String> {
 
 	private final String name;
 	protected static int counter = 0;
-	private TaskStatus status;
 	
 	public AbstractTask(String name) {
-		this.name = name;
+		
 		counter++;
-		status = TaskStatus.New;
+		
+		this.name = name + " [" + counter + "]";
 	}
 	
 	@Override
@@ -44,25 +44,11 @@ public abstract class AbstractTask implements Callable<String> {
 		return "Task: " + name;
 	}
 
-	public TaskStatus getStatus() {
-	
-		return status;
-	}
 
-	public void setStatus(TaskStatus status) {
-		this.status = status;
-	}
 
 	public String getName() {
 		return name;
 	}
 
-
-
-	@Override
-	public String call() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

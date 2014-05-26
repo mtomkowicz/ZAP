@@ -1,3 +1,7 @@
+/**
+ * @author Tomkowicz Małgorzata S12281
+ */
+
 package zad31.model;
 
 
@@ -32,6 +36,7 @@ public class FibonacciTask extends AbstractTask {
 				n++;
 			}
 			
+			Thread.yield();
 			return sb.toString();
 	}
 
