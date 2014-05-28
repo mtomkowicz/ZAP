@@ -6,15 +6,15 @@ package zad33;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class LicznikWithReentrantLock extends Thread {
+public class BalanceWithReentrantLock extends Thread {
 	
 	public static Lock lock = new ReentrantLock();
-	 private Licznik l; 
+	 private Balance b; 
 	 private int max;
 
-	 public LicznikWithReentrantLock(String name, Licznik l, int max) {
+	 public BalanceWithReentrantLock(String name, Balance b, int max) {
 	   super(name);
-	   this.l = l;
+	   this.b = b;
 	   this.max = max;
 	   start();
 	 }
@@ -24,12 +24,12 @@ public class LicznikWithReentrantLock extends Thread {
 	   for (int i = 0; i < max; i++) {
 		 // zapis
 		 lock.lock();
-		 l.zwiekszO(1);
-	     l.zmniejszO(1);
+		 b.increase(1);
+	     b.decrease(1);
 		 lock.unlock();
 		 // odczyt
 		 lock.lock();
-		 wynik = l.getLicznik();
+		 wynik = b.getBalance();
 		 // System.out.println(Thread.currentThread().getName() + " : " + wynik);
 		 lock.unlock();
 		 

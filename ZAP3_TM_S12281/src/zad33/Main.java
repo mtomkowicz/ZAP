@@ -11,11 +11,11 @@ public class Main {
 	public static void main(String[] args) {
 
 		int tnum = 20; // liczba wątków
-		int max = 300000; // liczba powtórzeń pętli w run()
+		int max = 40000; // liczba powtórzeń pętli w run()
 		long startTime;
 		long endTime;
 
-		Licznik l = new Licznik();
+		Balance b = new Balance();
 
 		Thread[] threads = new Thread[tnum];
 		Thread[] threads_rwLocks = new Thread[tnum];
@@ -24,39 +24,40 @@ public class Main {
 		// Test 1
 		startTime = System.currentTimeMillis();
 
-		TestStandardowaSynchronizacja(tnum, max, threads, l);
+		TestStandardowaSynchronizacja(tnum, max, threads, b);
 
 		endTime = System.currentTimeMillis() - startTime;
 		System.out.println("Standardowa synchronizacja             		- czas: " + endTime 
 				+ " ms"
-				+ ", licznik = " + l.getLicznik());
+				+ ", wynik = " + b.getBalance());
 
 		// Test - Synchronizacja typu read/write locks
 		startTime = System.currentTimeMillis();
 
-		TestWithRWLocks(tnum, max, threads_rwLocks, l);
+		TestWithRWLocks(tnum, max, threads_rwLocks, b);
 
 		endTime = System.currentTimeMillis() - startTime;
 		System.out.println("Synchronizacja typu read/write locks 		- czas: " + endTime
 				+ " ms"
-				+ ", licznik = " + l.getLicznik());
+				+ ", wynik = " + b.getBalance());
 
 		// Test - Synchronizacja typu reentrant lock
-		startTime = System.currentTimeMillis();
+		startTime = System .currentTimeMillis();
 
-		TestWithReentrantLocks(tnum, max, threads_rLocks, l);
+		TestWithReentrantLocks(tnum, max, threads_rLocks, b);
 
 		endTime = System.currentTimeMillis() - startTime;
 		System.out.println("Synchronizacja typu reentrant lock   		- czas: " + endTime
 				+ " ms"
-				+ ", licznik = " + l.getLicznik());
+				+ ", wynik = " + b.getBalance());
 
+		Thread.yield();
 	}
 
 	private static void TestStandardowaSynchronizacja(int tnum, int max,
-			Thread[] threads, Licznik l) {
+			Thread[] threads, Balance b) {
 		for (int i = 0; i < tnum; i++)
-			threads[i] = new LicznikThread("SSW" + (i + 1), l, max);
+			threads[i] = new BalanceThread("SSW" + (i + 1), b, max);
 		try {
 			for (int i = 0; i < tnum; i++)
 				threads[i].join();
@@ -66,9 +67,9 @@ public class Main {
 	}
 
 	private static void TestWithRWLocks(int tnum, int max, Thread[] threads,
-			Licznik l) {
+			Balance l) {
 		for (int i = 0; i < tnum; i++)
-			threads[i] = new LicznikThreadWithRWLocks("RWLW" + (i + 1), l, max);
+			threads[i] = new BalanceThreadWithRWLocks("RWLW" + (i + 1), l, max);
 		try {
 			for (int i = 0; i < tnum; i++)
 				threads[i].join();
@@ -78,9 +79,9 @@ public class Main {
 	}
 
 	private static void TestWithReentrantLocks(int tnum, int max,
-			Thread[] threads, Licznik l) {
+			Thread[] threads, Balance l) {
 		for (int i = 0; i < tnum; i++)
-			threads[i] = new LicznikWithReentrantLock("RLW" + (i + 1), l, max);
+			threads[i] = new BalanceWithReentrantLock("RLW" + (i + 1), l, max);
 		try {
 			for (int i = 0; i < tnum; i++)
 				threads[i].join();

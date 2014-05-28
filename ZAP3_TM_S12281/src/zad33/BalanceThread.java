@@ -3,15 +3,14 @@
  */
 package zad33;
 
-public class LicznikThread extends Thread {
+public class BalanceThread extends Thread {
 
-	public static Object lock = new Object();
-	 private Licznik l;
+	 private Balance b;
 	 private int max;
 
-	 public LicznikThread(String name, Licznik l, int max) {
+	 public BalanceThread(String name, Balance b, int max) {
 	   super(name);
-	   this.l = l;
+	   this.b = b;
 	   this.max = max;
 	   start();
 	 }
@@ -20,13 +19,13 @@ public class LicznikThread extends Thread {
 	   int wynik = 0;
 	   for (int i = 0; i < max; i++) {
 			 // write
-			 synchronized (lock) {
-				 l.zwiekszO(1);
-			     l.zmniejszO(1);
+			 synchronized (b) {
+				 b.increase(1);
+			     b.decrease(1);
 			 }
 			 // read
-			 synchronized (lock) {
-				 wynik = l.getLicznik();
+			 synchronized (b) {
+				 wynik = b.getBalance();
 				 //System.out.println(Thread.currentThread().getName() + " : " + wynik);
 			 }
 			 if (wynik != 0) {

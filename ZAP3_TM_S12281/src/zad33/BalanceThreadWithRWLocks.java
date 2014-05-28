@@ -7,17 +7,17 @@ package zad33;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class LicznikThreadWithRWLocks extends Thread {
+public class BalanceThreadWithRWLocks extends Thread {
 
 	public static ReentrantReadWriteLock rrwLock = new ReentrantReadWriteLock();
-	 private Licznik l; 		
+	 private Balance b; 		
 	 private int max; 			
 	 private Lock readLock;
 	 private Lock writeLock;
 	 
-	 public LicznikThreadWithRWLocks(String name, Licznik l, int max) {
+	 public BalanceThreadWithRWLocks(String name, Balance b, int max) {
 	   super(name);
-	   this.l = l;
+	   this.b = b;
 	   this.max = max;
 	   readLock = rrwLock.readLock();
 	   writeLock = rrwLock.writeLock();
@@ -29,12 +29,12 @@ public class LicznikThreadWithRWLocks extends Thread {
 	   for (int i = 0; i < max; i++) {
 		// zapis
 	     writeLock.lock();
-	     l.zwiekszO(1);
-	     l.zmniejszO(1);
+	     b.increase(1);
+	     b.decrease(1);
 		 writeLock.unlock();
 		 // odczyt
 		 readLock.lock();
-		 wynik = l.getLicznik();
+		 wynik = b.getBalance();
 		 //System.out.println(Thread.currentThread().getName() + " : " + wynik);
 		 readLock.unlock();
 
